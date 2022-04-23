@@ -12,6 +12,7 @@ import RxCocoa
 
 final class TitleTextFieldCell: UITableViewCell {
     
+    let disposeBag = DisposeBag()
     let titleInputField = UITextField()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -25,6 +26,12 @@ final class TitleTextFieldCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bind(_ viewModel: TitleTextFieldCellViewModel){
+        titleInputField.rx.text
+            .bind(to:viewModel.titleText)
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {
